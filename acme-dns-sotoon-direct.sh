@@ -1,15 +1,35 @@
 #!/usr/bin/env sh
 
+# shellcheck disable=SC2034
+dns_sotoon_direct_info='Sotoon.ir
+Site: Sotoon.ir
+Docs: github.com/acmesh-official/acme.sh/wiki/dnsapi#dns_sotoon_direct
+Options:
+ SOTOON_BEPA_TOKEN BEPA authentication token
+ SOTOON_NAMESPACE Kubernetes namespace
+ SOTOON_TOKEN_* Zone-specific BEPA token. Optional.
+ SOTOON_NAMESPACE_* Zone-specific namespace. Optional.
+Issues: github.com/acmesh-official/acme.sh/issues
+Author: Sotoon DNS Integration
+Note: Requires kubectl to be installed. Zone is auto-detected.
+'
+
+#
 # Sotoon DNS Direct Kubernetes API for acme.sh
 # Connects directly to Kubernetes without using the REST API
 #
 # Usage:
 #   export SOTOON_BEPA_TOKEN="your-bepa-token"
 #   export SOTOON_NAMESPACE="your-namespace"
-#   export SOTOON_ZONE="example.com"
+#
+# Zone-specific credentials (optional):
+#   export SOTOON_TOKEN_EXAMPLE_COM="token-for-example-com"
+#   export SOTOON_NAMESPACE_EXAMPLE_COM="namespace-for-example-com"
 #
 # Then use with acme.sh:
 #   acme.sh --issue --dns dns_sotoon_direct -d example.com -d *.example.com
+#
+# Zone is automatically detected from the domain.
 
 # Kubernetes API Configuration
 KUBECONFIG_URL="https://s3.thr2.sotoon.ir/neda-kubeconfig/kubeconfig"
